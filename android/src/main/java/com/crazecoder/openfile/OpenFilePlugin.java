@@ -76,30 +76,9 @@ public class OpenFilePlugin implements MethodCallHandler
                 return;
             }
             if (pathRequiresPermission()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && isExternalStoragePublicMedia(mimeType)) {
-                        if (isImage(mimeType) && !hasPermission(Manifest.permission.READ_MEDIA_IMAGES) && !Environment.isExternalStorageManager()) {
-                            result(-3, "Permission denied: " + Manifest.permission.READ_MEDIA_IMAGES);
-                            return;
-                        }
-                        if (isVideo(mimeType) && !hasPermission(Manifest.permission.READ_MEDIA_VIDEO) && !Environment.isExternalStorageManager()) {
-                            result(-3, "Permission denied: " + Manifest.permission.READ_MEDIA_VIDEO);
-                            return;
-                        }
-                        if (isAudio(mimeType) && !hasPermission(Manifest.permission.READ_MEDIA_AUDIO) && !Environment.isExternalStorageManager()) {
-                            result(-3, "Permission denied: " + Manifest.permission.READ_MEDIA_AUDIO);
-                            return;
-                        }
-                    } else if (!Environment.isExternalStorageManager()) {
-                        result(-3, "Permission denied: " + Manifest.permission.MANAGE_EXTERNAL_STORAGE);
-                        return;
-                    }
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        result(-3, "Permission denied: " + Manifest.permission.READ_EXTERNAL_STORAGE);
-                        return;
-                    }
-
+                if (!hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    result(-3, "Permission denied: " + Manifest.permission.READ_EXTERNAL_STORAGE);
+                    return;
                 }
             }
             if (TYPE_STRING_APK.equals(mimeType)) {
