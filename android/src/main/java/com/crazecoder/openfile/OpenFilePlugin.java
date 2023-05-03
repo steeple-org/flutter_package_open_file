@@ -96,12 +96,6 @@ public class OpenFilePlugin implements MethodCallHandler
             if (!isFileAvailable()) {
                 return;
             }
-            if (pathRequiresPermission()) {
-                if (!hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    result(-3, "Permission denied: " + Manifest.permission.READ_EXTERNAL_STORAGE);
-                    return;
-                }
-            }
             startActivity();
         } else {
             result.notImplemented();
